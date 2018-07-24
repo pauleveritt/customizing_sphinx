@@ -17,7 +17,33 @@ created by [theno](https://github.com/theno) | 2017-01-05 | [online][1] | [src][
 [6]: https://github.com/theno/fabsetup
 
 
+----
+
+### Dependencies
+
+```js
+Reveal.initialize({
+// Include other options…
+dependencies: [
+  // Include other dependencies…
+  { src: 'path/to/highlight.js' },
+  {
+    src: 'node_modules/reveal-code-focus/reveal-code-focus.js',
+    async: true,
+    callback: function() {
+      RevealCodeFocus();
+    }
+  }
+]
+});
+```
+<span class="fragment" data-code-focus="5">Note that the `highlight.js` file mentioned is not the [Reveal.js plugin](https://github.com/hakimel/reveal.js/blob/master/plugin/highlight/highlight.js), but the actual [`highlight.js` library](https://highlightjs.org/).</span>
+ 
+----
+
+
 ----  ----
+
 
 # 1. reveal.js
 
@@ -38,7 +64,6 @@ created by [theno](https://github.com/theno) | 2017-01-05 | [online][1] | [src][
   * <!-- .element: class="fragment" --> Don't bother with HTML syntax
   * <!-- .element: class="fragment" --> Write slides in a markdown file
 
-----
 
 ## reveal.js supports Markdown
 

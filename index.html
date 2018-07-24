@@ -1,0 +1,341 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>reveal-code-focus demo</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="node_modules/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="node_modules/reveal.js/css/theme/solarized.css">
+    <link rel="stylesheet" href="node_modules/reveal.js/lib/css/zenburn.css">
+    <style>
+      .reveal .slides section .fragment.current-only {
+        opacity: 1;
+        visibility: visible;
+        display: none;
+      }
+      .reveal .slides section .fragment.current-only.current-fragment {
+        display: block;
+      }
+
+      /* Solarized Light theme */
+      .line { display: block; }
+      .line.focus { background: #fdf6e3; color: #657b83; }
+      .line.focus .hljs-comment, .line.focus .hljs-quote { color: #93a1a1; }
+      .line.focus .hljs-keyword, .line.focus .hljs-selector-tag, .line.focus .hljs-addition { color: #859900; }
+      .line.focus .hljs-number, .line.focus .hljs-string, .line.focus .hljs-meta .hljs-meta-string, .line.focus .hljs-literal, .line.focus .hljs-doctag, .line.focus .hljs-regexp { color: #2aa198; }
+      .line.focus .hljs-title, .line.focus .hljs-section, .line.focus .hljs-name, .line.focus .hljs-selector-id, .line.focus .hljs-selector-class { color: #268bd2; }
+      .line.focus .hljs-attribute, .line.focus .hljs-attr, .line.focus .hljs-variable, .line.focus .hljs-template-variable, .line.focus .hljs-class .hljs-title, .line.focus .hljs-type { color: #b58900; }
+      .line.focus .hljs-symbol, .line.focus .hljs-bullet, .line.focus .hljs-subst, .line.focus .hljs-meta, .line.focus .hljs-meta .hljs-keyword, .line.focus .hljs-selector-attr, .line.focus .hljs-selector-pseudo, .line.focus .hljs-link { color: #cb4b16; }
+      .line.focus .hljs-built_in, .line.focus .hljs-deletion { color: #dc322f; }
+      .line.focus .hljs-formula { background: #eee8d5; }
+      .line.focus .hljs-emphasis { font-style: italic; }
+      .line.focus .hljs-strong { font-weight: bold; }
+
+      .yellow-slide .line.focus:nth-child(2) { background: yellow; }
+    </style>
+  </head>
+
+  <body>
+    <div class="reveal"><div class="slides">
+      <section id="reveal-code-focus" data-markdown>
+        # reveal-code-focus
+
+        A [Reveal.js](https://github.com/hakimel/reveal.js) plugin that allows focusing
+        on specific lines of code blocks.
+      </section>
+
+      <section>
+        <section id="installation" data-markdown>
+          ## Installation
+        </section>
+
+        <section data-markdown>
+          ### Using [npm](https://www.npmjs.com/)
+
+          ```bash
+          $ npm install --save reveal-code-focus
+          ```
+        </section>
+
+        <section data-markdown>
+          ### Using [Bower](http://bower.io/)
+
+          ```bash
+          $ bower install --save reveal-code-focus
+          ```
+        </section>
+      </section>
+
+      <section>
+        <section id="usage" data-markdown>
+          ## Usage
+        </section>
+
+        <section data-markdown><script type="text/template">
+          ### Dependencies
+
+          ```js
+          Reveal.initialize({
+            // Include other options…
+            dependencies: [
+              // Include other dependencies…
+              { src: 'path/to/highlight.js' },
+              {
+                src: 'node_modules/reveal-code-focus/reveal-code-focus.js',
+                async: true,
+                callback: function() {
+                  RevealCodeFocus();
+                }
+              }
+            ]
+          });
+          ```
+          <span class="fragment" data-code-focus="5">Note that the `highlight.js` file mentioned is not the [Reveal.js plugin](https://github.com/hakimel/reveal.js/blob/master/plugin/highlight/highlight.js), but the actual [`highlight.js` library](https://highlightjs.org/).</span>
+        </script></section>
+
+        <section data-markdown><script type="text/template">
+          ### Usage
+
+          ```html
+          <section>
+            <pre><code>
+            // Useless comment.
+            alert('hi');
+            </pre></code>
+            <p class="fragment" data-code-focus="1">
+              This focuses on the comment.
+            </p>
+            <p class="fragment" data-code-focus="1-2">
+              Another fragment.
+            </p>
+          </section>
+          ```
+          <span class="fragment current-only" data-code-focus="1-12">This section is a slide.</span>
+          <span class="fragment current-only" data-code-focus="2-5">This will be highlighted by `highlight.js`.</span>
+          <span class="fragment current-only" data-code-focus="6-8">This fragment focuses on the first line.</span>
+          <span class="fragment current-only" data-code-focus="9-11">This fragment focuses on lines 1 and 2.</span>
+          <span class="fragment current-only" data-code-focus="1-12">See the next slide for a demo with the contents of this code block.</span>
+        </script></section>
+
+        <section data-markdown><script type="text/template">
+          ### Demo
+
+          ```js
+          // Useless comment.
+          alert('hi');
+          ```
+          <p class="fragment" data-code-focus="1">This focuses on the comment.</p>
+          <p class="fragment" data-code-focus="1-2">Another fragment.</p>
+        </script></section>
+
+        <section data-markdown style="text-align: left"><script type="text/template">
+          ### How it works
+
+          `reveal-code-focus` associates the lines of code to focus on with fragments.
+          When the fragments are displayed, `reveal-code-focus` will focus on these lines.
+
+          Each line of code is wrapped in a `<span>` element with a class of `"line"`.
+          When lines are focused on, they will also have the `"focus"` class.
+          Use the `.line.focus` selector for custom styling.
+        </script></section>
+
+        <section data-markdown>
+          ### Gotchas
+
+           * Ensure that the actual [`highlight.js` library](https://highlightjs.org/), and
+             not the [Reveal.js plugin](https://github.com/hakimel/reveal.js/blob/master/plugin/highlight/highlight.js)
+             is loaded.
+
+           * **Do not** initialize code highlighting with `hljs.initHighlightingOnLoad()`.
+        </section>
+
+        <section data-state="yellow-slide" data-markdown><script type="text/template">
+          ### Styling
+
+          ```css
+          .line { display: block; }
+          .line.focus { background: yellow; }
+          /* include a highlight.js theme and modify it */
+          /* … */
+          /* on focused: switch to solarized light */
+          .line.focus { background: #fdf6e3; color: #657b83; }
+          .line.focus .hljs-comment, .line.focus .hljs-quote { color: #93a1a1; }
+          /* … */
+          ```
+          <span class="fragment current-only" data-code-focus="1">The most important style is to ensure that lines are set to `display: block`, so that different lines will not be rendered on the same line.</span>
+          <span class="fragment current-only" data-code-focus="2">To style your code you might first want to set a different background or text colour when highlighted.</span>
+          <span class="fragment current-only" data-code-focus="3-4">You can also use a specific theme by default…</span>
+          <span class="fragment current-only" data-code-focus="5-8">…then switch to a different one when lines are focused on.</span>
+        </script></section>
+
+        <section data-markdown><script type="text/template">
+          ### Multiple code blocks
+
+          ```js
+          // This also works with multiple code blocks
+          ```
+
+          ```html
+          <span class="fragment"
+            data-code-focus="1-5"
+            data-code-block="2">
+          </span>
+          ```
+
+          <span class="fragment current-only" data-code-focus="1">To focus on lines on slides with multiple code blocks…</span>
+          <span class="fragment current-only" data-code-focus="3" data-code-block="2">…add the `data-code-block` attribute to your fragment.</span>
+          <span class="fragment current-only" data-code-focus="1">By default, all fragments will focus on the first code block, unless otherwise specified.</span>
+        </script></section>
+      </section>
+
+      <section>
+        <section id="extras" data-markdown>
+          ## Extras
+        </section>
+
+        <section data-markdown><script type="text/template">
+          ### Configuration
+
+          ```js
+          // Configure `reveal-code-focus`.
+          RevealCodeFocus({
+            scrollToFocused: false // default: true
+          });
+          ```
+          <p class="fragment current-only" data-code-focus="1-4">`reveal-code-focus` can be configured by passing in an `options` object.</p>
+          <p class="fragment current-only" data-code-focus="3">`scrollToFocused` automatically scrolls `<code>` elements so that the focused code is centered. This is enabled by default.</p>
+        </script></section>
+
+        <section data-markdown><script type="text/template">
+          ### Demo of `scrollToFocused`
+
+          ```js
+          // Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate
+          // lectus vel laoreet faucibus. Etiam suscipit erat a porta consectetur.
+          // Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+          // inceptos himenaeos. Nullam aliquet luctus orci sed molestie. Vivamus a
+          // tristique eros. Aenean et quam nec elit lacinia pulvinar eget quis dui.
+          // Morbi pharetra elit vel metus lobortis bibendum. Vestibulum sit amet
+          // fringilla turpis, in condimentum arcu. In interdum porttitor elit, ac
+          // ultricies odio vestibulum ut. Nam non erat tincidunt, ultrices nulla
+          // eget, sagittis nisi. Morbi sed est commodo nulla elementum iaculis.
+          // Integer ut mi risus. Sed vitae placerat magna. Interdum et malesuada
+          // fames ac ante ipsum primis in faucibus.
+
+          // Proin laoreet est vitae mattis luctus. Nunc finibus, massa at commodo
+          // vehicula, ipsum nibh cursus augue, eu facilisis nibh metus non nibh.
+          // Sed vel aliquet eros. Praesent nibh orci, aliquet quis ligula in,
+          // vulputate mollis metus. In finibus tortor sed sapien viverra lobortis.
+          // Nunc ornare sem non elit euismod, quis lobortis purus euismod. Aliquam
+          // erat volutpat. Ut ornare semper neque, a laoreet turpis vestibulum non.
+          // Fusce in nibh vitae lorem gravida sagittis sed vitae eros. Nam sagittis
+          // dapibus mi et fermentum. Nunc arcu dui, rhoncus et venenatis ut, placerat
+          // vel quam. Integer faucibus ex metus, eleifend luctus nisl vehicula ut.
+          // Donec eu turpis a justo molestie condimentum. Curabitur fermentum eros ut
+          // metus iaculis pulvinar. Aenean finibus rutrum auctor. Cum sociis natoque
+          // penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+          // Vestibulum fermentum dapibus leo eget efficitur. Sed et sem rhoncus,
+          // viverra odio nec, luctus sapien. Vestibulum semper ac ante ut efficitur.
+          // Ut vitae velit ac leo elementum aliquam ut in neque. Praesent vel massa
+          // vestibulum est bibendum eleifend et nec est. Vestibulum venenatis metus
+          // sed sapien malesuada, eget tincidunt ante dapibus. Interdum et malesuada
+          // fames ac ante ipsum primis in faucibus. Morbi sed iaculis dui. Nam
+          // placerat sed nisl et condimentum. Sed et venenatis elit. Fusce sodales
+          // consectetur maximus. Vestibulum venenatis dolor sed erat hendrerit, sed
+          // ullamcorper velit porta. Donec venenatis leo nunc, eget tempor odio
+          // sodales sed. Vivamus viverra dolor vel fermentum facilisis.
+
+          // Cras sit amet eleifend nisl, non egestas magna. Etiam vehicula, purus a
+          // facilisis fermentum, urna orci fermentum enim, ac finibus nibh nibh ac
+          // nulla. Donec non orci sed diam pretium lobortis. Quisque sapien justo,
+          // vulputate nec cursus at, dignissim vitae lacus. Cras elementum molestie
+          // augue, non fringilla massa efficitur id. Donec mattis arcu felis, ut
+          // vehicula diam auctor id. Aliquam nisl ligula, feugiat at bibendum sed,
+          // viverra ac est. Proin iaculis purus eget dapibus dapibus. Aliquam tempor
+          // vehicula mi, a mattis massa porttitor id. Nam in eleifend tortor.
+          // Pellentesque mattis felis a mi molestie mattis. Aenean ligula neque,
+          // efficitur id augue id, feugiat suscipit dui. Proin vel lacus in enim
+          // facilisis venenatis nec pulvinar justo. Nulla gravida feugiat facilisis.
+          // Mauris sollicitudin leo non urna dapibus efficitur. Pellentesque habitant
+          // morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          ```
+          <p class="fragment current-only" data-code-focus="1">Some generated text.</p>
+          <p class="fragment current-only" data-code-focus="20">Let’s scroll to line 20.</p>
+          <p class="fragment current-only" data-code-focus="1-11">Focus on this paragraph!</p>
+        </script></section>
+
+        <section data-markdown><script type="text/template">
+          ### `data-trim`
+
+          ```html
+          <pre><code data-trim>
+
+          .line { display: block; }
+          .line.focus { background: yellow; }
+
+          </code></pre>
+          ```
+          The `data-trim` attribute can be used to indicate that code blocks should have whitespace trimmed from their front and back.
+
+          <span class="fragment" data-code-focus="1">Simply set the `data-trim` attribute on the `<code>` element</span>
+          <span class="fragment" data-code-focus="2-5">of any code blocks</span>
+          <span class="fragment" data-code-focus="3-4">to have its whitespace trimmed.</span>
+        </script></section>
+
+        <section data-markdown><script type="text/template">
+          ### Custom Fragments
+
+          ```html
+          <style>
+            .reveal .slides section .fragment.current-only {
+              opacity: 1;
+              visibility: visible;
+              display: none;
+            }
+            .reveal .slides section .fragment.current-only.current-fragment {
+              display: block;
+            }
+          </style>
+          <p class="fragment current-only">Some text</p>
+          <p class="fragment current-only" data-code-focus="1">with highlighting</p>
+          ```
+          <span class="fragment current-only">If you want to display only the current fragments,</span>
+          <span class="fragment current-only">without leaving space in the slide for the hidden fragments,</span>
+          <span class="fragment current-only" data-code-focus="1-10">use these styles…</span>
+          <span class="fragment current-only" data-code-focus="11-12">…and the `"current-only"` class.</span>
+        </script></section>
+      </section>
+
+      <section data-markdown>
+        [reveal-code-focus on GitHub](https://github.com/bnjmnt4n/reveal-code-focus)
+      </section>
+    </div></div>
+
+    <script src="node_modules/reveal.js/lib/js/head.min.js"></script>
+    <script src="node_modules/reveal.js/js/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'slide',
+        dependencies: [
+          { src: 'node_modules/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'node_modules/reveal.js/plugin/markdown/marked.js' },
+          { src: 'node_modules/reveal.js/plugin/markdown/markdown.js' },
+          { src: 'vendor/highlight.js/highlight.pack.js' },
+          { src: 'node_modules/reveal-code-focus/reveal-code-focus.js', callback: function() { RevealCodeFocus(); } }
+        ]
+      });
+    </script>
+  </body>
+</html>

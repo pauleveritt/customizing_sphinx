@@ -52,6 +52,14 @@
                 callback: function () {
                     hljs.initHighlightingOnLoad();
                 }
+            },
+            { src: 'node_modules/highlight.js/lib/highlight.js' },
+            {
+                src: 'node_modules/reveal-code-focus/reveal-code-focus.js',
+                async: true,
+                callback: function () {
+                    RevealCodeFocus();
+                }
             }
         ]
     });

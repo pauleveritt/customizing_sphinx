@@ -1,0 +1,29 @@
+{
+  "name": "customizing_sphinx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "serve": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pauleveritt/customizing_sphinx.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pauleveritt/customizing_sphinx/issues"
+  },
+  "homepage": "https://github.com/pauleveritt/customizing_sphinx#readme",
+  "dependencies": {
+    "highlight.js": "^9.12.0",
+    "lite-server": "^2.4.0",
+    "reveal-code-focus": "^1.0.0",
+    "reveal.js": "^3.6.0"
+  }
+}
