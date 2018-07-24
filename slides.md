@@ -20,39 +20,85 @@ Paul Everitt, @paulweveritt
 - Change some values
 - Change some theme options
 
+----
+
+### Change Some Values
+
+----
+
+### Change some theme options
+
+
 ----  ----
 
-# Normal: Customizing
+## Normal: Customizing
 
 - 10 min
-- Override a template
-    - The Sphinx "basic" template structure
-- Add some CSS
-- Add some images
-- Add some CSS
-- Install a new extension
-    - pip
-    - Add to extensions
-    - Connect as theme
-    - Configure some options
-- Install content-oriented extensions
-    - New directive
-- Things that extensions can add
-    - Themes
-    - Directives
-    - Builders    
+
+----
+
+### Override a template
+
+- The Sphinx "basic" template structure
+
+----
+
+### Add some CSS
+
+----
+
+### Add some images
+
+
+----
+
+### Install a new extension
+
+- pip
+- Add to extensions
+- Connect as theme
+- Configure some options
+
+----
+
+### Install content-oriented extensions
+
+- New directive
+
+----
+
+### Things that extensions can add
+
+- Themes
+- Directives
+- Builders    
 
 ----  ----
 
 ## Hard: Extending
 
-- What is an extension?
-    - Package with a __init__.setup() function that gets passed app
-    - Registers new kinds of things
-    - Listens for for events
-- Example: the theme we installed
-- Todo example
-- Don't be stupid, write tests
+
+----
+
+### What is an extension?
+
+- Package with a __init__.setup() function that gets passed app
+- Registers new kinds of things
+- Listens for for events
+
+----
+
+### Example: the theme we installed
+
+
+----
+
+### Todo example
+
+
+----
+
+### Don't be stupid, write tests
 
 ----  ----
 
