@@ -1,19 +1,66 @@
-# REVEAL.JS TEMPLATE
+# Customizing Sphinx
 
-## [reveal.js][3] presentation written in [markdown][4] set up with [fabric][5] & [fabsetup][6]
+### Simple, Normal, Hard
 
-created by [theno](https://github.com/theno) | 2017-01-05 | [online][1] | [src][2]
+Paul Everitt, @paulweveritt
 
+----  ----
 
-[1]: https://theno.github.io/revealjs_template
-[2]: https://github.com/theno/revealjs_template
+## Intro
 
-[3]: http://lab.hakim.se/reveal-js/
-[4]: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-[5]: http://www.fabfile.org/
-[6]: https://github.com/theno/fabsetup
+- 5 min
+- whoami
+- set the scene
 
+----  ----
 
+## Simple: Configuration
+
+- 5 min
+- Change some values
+- Change some theme options
+
+----  ----
+
+# Normal: Customizing
+
+- 10 min
+- Override a template
+    - The Sphinx "basic" template structure
+- Add some CSS
+- Add some images
+- Add some CSS
+- Install a new extension
+    - pip
+    - Add to extensions
+    - Connect as theme
+    - Configure some options
+- Install content-oriented extensions
+    - New directive
+- Things that extensions can add
+    - Themes
+    - Directives
+    - Builders    
+
+----  ----
+
+## Hard: Extending
+
+- What is an extension?
+    - Package with a __init__.setup() function that gets passed app
+    - Registers new kinds of things
+    - Listens for for events
+- Example: the theme we installed
+- Todo example
+- Don't be stupid, write tests
+
+----  ----
+
+### Conclusion
+
+- Sphinx is big, powerful, old, crazy
+- Under-appreciated as Python's secret weapon
+- Contact me: hallway, sprint, open space, @paulweveritt 
 
 ----  ----
 
