@@ -1,27 +1,46 @@
 <!doctype html>
-<html>
-<head>
+<html lang="en">
+  <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>reveal.js</title>
+    <title>reveal-code-focus demo</title>
 
-    <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/solarized.css"
-          id="theme">
-    <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- Printing and PDF exports -->
-    <script>
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
-        document.getElementsByTagName('head')[0].appendChild(link);
-    </script>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="node_modules/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="node_modules/reveal.js/css/theme/solarized.css">
+    <link rel="stylesheet" href="node_modules/reveal.js/lib/css/zenburn.css">
+    <style>
+      .reveal .slides section .fragment.current-only {
+        opacity: 1;
+        visibility: visible;
+        display: none;
+      }
+      .reveal .slides section .fragment.current-only.current-fragment {
+        display: block;
+      }
+
+      /* Solarized Light theme */
+      .line { display: block; }
+      .line.focus { background: #fdf6e3; color: #657b83; }
+      .line.focus .hljs-comment, .line.focus .hljs-quote { color: #93a1a1; }
+      .line.focus .hljs-keyword, .line.focus .hljs-selector-tag, .line.focus .hljs-addition { color: #859900; }
+      .line.focus .hljs-number, .line.focus .hljs-string, .line.focus .hljs-meta .hljs-meta-string, .line.focus .hljs-literal, .line.focus .hljs-doctag, .line.focus .hljs-regexp { color: #2aa198; }
+      .line.focus .hljs-title, .line.focus .hljs-section, .line.focus .hljs-name, .line.focus .hljs-selector-id, .line.focus .hljs-selector-class { color: #268bd2; }
+      .line.focus .hljs-attribute, .line.focus .hljs-attr, .line.focus .hljs-variable, .line.focus .hljs-template-variable, .line.focus .hljs-class .hljs-title, .line.focus .hljs-type { color: #b58900; }
+      .line.focus .hljs-symbol, .line.focus .hljs-bullet, .line.focus .hljs-subst, .line.focus .hljs-meta, .line.focus .hljs-meta .hljs-keyword, .line.focus .hljs-selector-attr, .line.focus .hljs-selector-pseudo, .line.focus .hljs-link { color: #cb4b16; }
+      .line.focus .hljs-built_in, .line.focus .hljs-deletion { color: #dc322f; }
+      .line.focus .hljs-formula { background: #eee8d5; }
+      .line.focus .hljs-emphasis { font-style: italic; }
+      .line.focus .hljs-strong { font-weight: bold; }
+
+      .yellow-slide .line.focus:nth-child(2) { background: yellow; }
+    </style>
+  </head>
+
 <body>
 <div class="reveal">
     <div class="reveal">
@@ -34,35 +53,24 @@
     </div>
 </div>
 
-<script src="lib/js/head.min.js"></script>
-<script src="js/reveal.js"></script>
-
-<script>
-    // More info about config & dependencies:
-    // - https://github.com/hakimel/reveal.js#configuration
-    // - https://github.com/hakimel/reveal.js#dependencies
-    Reveal.initialize({
+    <script src="node_modules/reveal.js/lib/js/head.min.js"></script>
+    <script src="node_modules/reveal.js/js/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'slide',
         dependencies: [
-            {src: 'plugin/markdown/marked.js'},
-            {src: 'plugin/markdown/markdown.js'},
-            {src: 'plugin/notes/notes.js', async: true},
-            {
-                src: 'plugin/highlight/highlight.js',
-                async: true,
-                callback: function () {
-                    hljs.initHighlightingOnLoad();
-                }
-            },
-            { src: 'node_modules/highlight.js/lib/highlight.js' },
-            {
-                src: 'node_modules/reveal-code-focus/reveal-code-focus.js',
-                async: true,
-                callback: function () {
-                    RevealCodeFocus();
-                }
-            }
+          { src: 'node_modules/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'node_modules/reveal.js/plugin/markdown/marked.js' },
+          { src: 'node_modules/reveal.js/plugin/markdown/markdown.js' },
+          { src: 'vendor/highlight.js/highlight.pack.js' },
+          { src: 'node_modules/reveal-code-focus/reveal-code-focus.js', callback: function() { RevealCodeFocus(); } }
         ]
-    });
-</script>
+      });
+    </script>
+
 </body>
 </html>
