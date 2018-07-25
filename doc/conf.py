@@ -1,5 +1,6 @@
 
 # -- Project information -----------------------------------------------------
+import sphinx_bootstrap_theme
 
 project = 'Customizing Sphinx'
 copyright = '2018, Paul Everitt <pauleveritt@me.com>'
