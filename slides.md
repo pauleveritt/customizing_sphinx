@@ -1089,49 +1089,118 @@ def setup(app):
 
 ### Let's write an extension
 
-Hello World directive. Of course.
+- Hello World directive. Of course.
+- Docutils node
+- Docutils directive
+- Sphinx event handler to render HTML output
+- ``setup.py`` wiring
 
 ----
 
-### ``customizing_sphinx/helloworld.py``
+### ``customizing_sphinx/node.py``
 
-TODO code block of directive
+```python
+from docutils import nodes
+
+
+class helloworld(nodes.Admonition, nodes.Element):
+    pass
+
+
+def visit_helloworld_node(self, node):
+    self.visit_admonition(node)
+
+
+def depart_helloworld_node(self, node):
+    self.depart_admonition(node)
+```
+
+----
+
+### ``customizing_sphinx/directive.py``
+
+```python
+from docutils.parsers.rst import Directive
+
+from customizing_sphinx.node import helloworld
+
+
+class HelloWorldDirective(Directive):
+
+    def run(self):
+        hello_world_node = helloworld('Hello World')
+        self.state.nested_parse(self.content, self.content_offset,
+                                hello_world_node)
+
+        return [hello_world_node]
+```
+
+----
+
+### ``customizing_sphinx/handlers.py``
+
+```python
+from docutils import nodes
+
+from customizing_sphinx.node import helloworld
+
+
+def process_helloworld_nodes(app, doctree, fromdocname):
+    for hwnode in doctree.traverse(helloworld):
+        output = f'<em>{hwnode.rawsource}</em>'
+        hwnode.replace_self(nodes.raw('', output, format='html'))
+```
 
 ----
 
 ### ``customizing_sphinx/__init__.py``
 
-TODO code block of setup.py
+```python
+from customizing_sphinx.directive import HelloWorldDirective
+from customizing_sphinx.handlers import process_helloworld_nodes
+from customizing_sphinx.node import (
+    helloworld,
+    depart_helloworld_node,
+    visit_helloworld_node
+)
+
+
+def setup(app):
+    app.add_node(
+        helloworld,
+        html=(visit_helloworld_node, depart_helloworld_node),
+    )
+    app.add_directive('helloworld', HelloWorldDirective)
+    app.connect('doctree-resolved', process_helloworld_nodes)
+```
+
 
 ----
 
 ### Add it to ``conf.py``
 
-TODO code block of conf.py
+```python
+extensions = [
+    'customizing_sphinx'
+]
+```
 
 ----
 
-### We now have a new directive...
+### We now have a new directive in our RST...
 
-TODO Show an RST document
+```
+Customizing Sphinx
+==================
+
+.. helloworld::
+```
 
 ----
 
 ### ...which renders in a page
 
-TODO Screenshot of helloworld
-
-----
-
-### Wrong usage, and...
-
-TODO code of rst without argument
-
-----
-
-### ...Sphinx warns us
-
-TODO bash output of running sphinx with error
+![](images/custom_directive.png)
 
 ----
 
@@ -1143,15 +1212,71 @@ TODO bash output of running sphinx with error
 
 ---- 
 
-### ``tests/confdir.py``
+### ``tests/conftest.py``
 
-TODO Code for fixture
+```python
+"""
+
+Integration-oriented fixtures for sphinx.testing of
+generated HTML.
+
+"""
+
+import os
+
+import pytest
+from bs4 import BeautifulSoup
+from sphinx.testing.path import path
+
+pytest_plugins = 'sphinx.testing.fixtures'
+
+
+@pytest.fixture()
+def rootdir():
+    roots = path(os.path.dirname(__file__) or '.').abspath() / 'roots'
+    yield roots
+
+
+@pytest.fixture()
+def content(app):
+    app.build()
+    yield app
+
+
+@pytest.fixture()
+def page(content, request) -> BeautifulSoup:
+    pagename = request.param
+    c = (content.outdir / pagename).text()
+
+    yield BeautifulSoup(c, 'html5lib')
+```
 
 ---- 
 
 #### tests/test_helloworld.py
 
-TODO code snippet for test
+```python
+import pytest
+
+pytestmark = pytest.mark.sphinx('html', testroot='directive')
+
+
+@pytest.mark.parametrize('page', ['index.html', ], indirect=True)
+def test_index(page):
+    # Make sure the page title is what you expect
+    title = page.find('h1').contents[0].strip()
+    assert 'Directive Test' == title
+
+    # Now test the directive
+    directive = page.find('em').contents[0].strip()
+    assert 'Hello World' == directive
+```
+
+---- 
+
+#### Yields the pleasure of...
+
+![](images/pycharm_test.png)
 
 ---- ----
 

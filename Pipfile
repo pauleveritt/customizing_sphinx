@@ -8,6 +8,9 @@ sphinx = "*"
 pytest = "*"
 
 [dev-packages]
+"beautifulsoup4" = "*"
+"html5lib" = "*"
+doctr = "*"
 
 [requires]
 python_version = "3.6"

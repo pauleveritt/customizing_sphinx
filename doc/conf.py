@@ -1,6 +1,5 @@
 
 # -- Project information -----------------------------------------------------
-import sphinx_bootstrap_theme
 
 project = 'Customizing Sphinx'
 copyright = '2018, Paul Everitt <pauleveritt@me.com>'
@@ -22,6 +21,7 @@ release = ''
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'customizing_sphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
