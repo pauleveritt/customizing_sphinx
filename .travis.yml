@@ -4,3 +4,16 @@ python:
 
 # command to install dependencies
 install: "make"
+
+
+env:
+  global:
+    # Doctr deploy key for pauleveritt/customizing_sphinx
+    - secure: "eeQEJTNzWqEceHlGfGX4fL1a2qQRmqljhp3tmgWBR732DihFRbaHRVfFKzlU5TJSTIKVz/oCGptR1A+Pv7bAE41Z1vgVunZuS4DF+MFKEEDtgpabYfZJqfR1YPte9xfisuUEZmfLeVtjiMCwWMFUBck/5neHPq8/mE6ObVT6EyG/n68/BzhgXdQEX16lq7B0vB+zkXw3HcAk+9CR3VUhLyTgQvuSEnx3V/aKUby98MzyJfOqwiDzILmveY5B+VINvKk0VOs8vmb4gR2CyzsuKDu8jN5Jpglhi8OfytZz5ioD8hF+PPTirZDnD5oNxQW1F/WvJzPxX+bwQA1LZz7zKgSXY7FiIIh1cnSa/qrPCUp5KN67HfOH3JdKmTckCAQ8v2SbTSJJ66/D2Ly6dw6YB2BF/SIcgmG/DdHsikirMewpXYM/+W45+s2RCgBwKG8CANLDQNqVxduY9JwVwMmTi/zBOTYr5IJU5zMvAM5qIQeQS9o7ib2LN1+hEsW9c7lI8B0KDsBGnSkqmjh6FzDb+62rqhyzMgSwnXv4m18Fboi2DpDt/4proJAulnw9DVLGHzQGmeaIwbITVXIRQJKttL934w65GhvuobU4hXilq199rV83nkeSro9uaylOcuPYpSu4YM4k+0HPiNs2NtIiHXmd9qjFejEYjN7WepezRiE="
+
+script:
+  - set -e
+  - cd docs
+  - pipenv run make html
+  - pip install doctr
+  - doctr deploy . --built-docs doc/_build/html

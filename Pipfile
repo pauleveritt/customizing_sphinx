@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 sphinx = "*"
 pytest = "*"
+typing-extensions = "*"
 
 [dev-packages]
 "beautifulsoup4" = "*"

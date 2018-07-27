@@ -4,7 +4,7 @@
 
 ##### Paul Everitt, @paulweveritt
 
-Follow Along: URL
+Repo: URL
 
 ----  ----
 
@@ -17,7 +17,7 @@ Follow Along: URL
 
 ### Alternative Presentation Format
 
-TODO giphy of "buckle up"
+<video alt="driving fox tv GIF by Empire FOX" src="videos/giphy.mp4" poster="videos/buckleup.gif" autoplay="" loop="" playsinline="" style="width: 580px; height: 369.76px; left: 0px; top: 0px;"></video>
 
 Follow Along: URL
 
@@ -547,7 +547,11 @@ WARNING: unsupported theme option 'xxxfixed_sidebar' given
 
 ## Serious Magic Ahead
 
-TODO giphy of "where we're going there are no roads back to the future"
+
+<video alt="michael j. fox GIF" src="videos/noroads.mp4" 
+poster="videos/noroads.gif" autoplay="" 
+loop="" playsinline="" style="width: 580px; height: 580px; left: 0px; top: 0px;"></video>
+
 
 ----  ----
 
@@ -570,8 +574,7 @@ TODO giphy of "where we're going there are no roads back to the future"
 
 ### Hold on to your butts
 
-TODO giphy for hold onto your butts
-
+<video alt="jurassic park hold onto your butts GIF" src="videos/butts.mp4" poster="videos/butts.gif" autoplay="" loop="" playsinline="" style="width: 480px; height: 262.8px; left: 0px; top: 0px;"></video>
 
 ----
 
@@ -898,7 +901,7 @@ TODO giphy for hold onto your butts
 
 ### Where did ``sidebars`` come from?
 
-TODO giphy of wtf
+<video alt="mr bean wtf GIF" src="videos/mrbean.mp4" poster="videos/mrbean.gif" autoplay="" loop="" playsinline="" style="width: 480px; height: 360px; left: 0px; top: 0px;"></video>
 
 ----
 
@@ -949,11 +952,10 @@ TODO giphy of wtf
 
 ## Aside: Magic
 
-TODO Picture of wizard blowing up in face: As Uncle Timmy always said...explicit is better than implicit"
-
 - A brief taste of the layers of magic
 - Template blocks/macros/layouts, layers, theme conf
 - Vast ecosystem of informal, inconsistent, implicit conventions
+- Explicit *should* be better than implicit
 
 ----  ----
 
@@ -1281,8 +1283,6 @@ def test_index(page):
 ---- ----
 
 ## Any Questions?
-
-TODO giphy of Just Kidding
 
 - I know, that was a lot, but...
 - URL to repo
