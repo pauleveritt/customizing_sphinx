@@ -4,7 +4,7 @@
 
 ##### Paul Everitt, @paulweveritt
 
-Repo: URL
+Repo: https://github.com/pauleveritt/customizing_sphinx
 
 ----  ----
 
@@ -19,11 +19,11 @@ Repo: URL
 
 <video alt="driving fox tv GIF by Empire FOX" src="videos/giphy.mp4" poster="videos/buckleup.gif" autoplay="" loop="" playsinline="" style="width: 580px; height: 369.76px; left: 0px; top: 0px;"></video>
 
-Follow Along: URL
+Review later: https://github.com/pauleveritt/customizing_sphinx
 
 ----
 
-## Raise Your Hand If You...
+## Raise Your Hand If You ---
 
 
 * Have ever written Sphinx docs? <!-- .element: class="fragment" -->
@@ -64,7 +64,7 @@ Follow Along: URL
 
 ----  ----
 
-### 1a. conf.py
+### 1a. conf.py ---
 
 ```python
 # -- Project information -----------------------------------------------------
@@ -217,12 +217,12 @@ texinfo_documents = [
 
 ----
 
-### ...and we change project title
+### ...and we change project title ---
 
 ```python
 # -- Project information ---------------------
 
-project = 'Customizing Sphinx: Simple, Normal, Hard'
+project = 'Customizing Sphinx'
 copyright = '2018, Paul Everitt <pauleveritt@me.com>'
 author = 'Paul Everitt <pauleveritt@me.com>'
 
@@ -241,7 +241,7 @@ release = ''
 ### ...and we change project title
 
 ```python
-project = 'Customizing Sphinx'
+project = 'Customizing Sphinx: Simple, Normal, Hard'
 copyright = '2018, Paul Everitt <pauleveritt@me.com>'
 author = 'Paul Everitt <pauleveritt@me.com>'
 
@@ -266,7 +266,7 @@ release = ''
 ----  ----
 
 
-### 1b. Change some HTML theme options
+### 1b. Change some HTML theme options ---
 
 ```python
 # -- Options for HTML output -------------------------------------------------
@@ -322,7 +322,7 @@ html_theme = 'alabaster'
 
 ----
 
-### Its ``theme.conf`` file
+### Its ``theme.conf`` file ---
 
 ```ini
 [theme]
@@ -495,7 +495,7 @@ div.document {
 - CSS passed through Jinja2 templating
 - Note the magic
     - ``_t`` means "template"
-    - ``theme_page_width`` is not the same
+    - ``theme_page_width`` is magic symbol
 
 ----
 
@@ -513,7 +513,7 @@ html_theme_options = {
 
 ----
 
-### Rebuild shows
+### Rebuild shows ---
 
 ```
 python .venv/bin/sphinx-build -b html doc doc/_build/html
@@ -560,7 +560,6 @@ loop="" playsinline="" style="width: 580px; height: 580px; left: 0px; top: 0px;"
 - Override a template
 - Add some CSS
 - Install an extension
-- Install a content-oriented extension
 
 ----  ----
 
@@ -572,13 +571,29 @@ loop="" playsinline="" style="width: 580px; height: 580px; left: 0px; top: 0px;"
 
 ----
 
-### Hold on to your butts
+### This part's complicated
 
 <video alt="jurassic park hold onto your butts GIF" src="videos/butts.mp4" poster="videos/butts.gif" autoplay="" loop="" playsinline="" style="width: 480px; height: 262.8px; left: 0px; top: 0px;"></video>
 
 ----
 
-### ``alabaster/layout.html``
+### Sphinx Theming and Jinja2
+
+- Sphinx can produce PDF, man pages, etc., and...HTML
+
+- HTML output is controlled by themes
+
+- HTML output uses the Jinja2 templating system
+
+- Jinja2 has master templates, blocks, macros, includes, imports
+
+- Sphinx adds a "layer" system to this
+
+- Alabaster is the default theme
+
+----
+
+### ``alabaster/layout.html`` ---
  
 ```html+jinja 
 {%- extends "basic/layout.html" %}
@@ -674,7 +689,7 @@ loop="" playsinline="" style="width: 580px; height: 580px; left: 0px; top: 0px;"
 
 ----
 
-### ``basic/layout.html``
+### ``basic/layout.html`` ---
 
 ```html+jinja 
 {#
@@ -919,7 +934,7 @@ loop="" playsinline="" style="width: 580px; height: 580px; left: 0px; top: 0px;"
 
 ----
 
-### ``_templates/searchbox.html``
+### ``_templates/searchbox.html`` ---
 
 ```html+jinja
 {%- if pagename != "search" and builder != "singlehtml" %}
@@ -1061,7 +1076,7 @@ html_theme_options = {
 
 ----
 
-### Example: ``alabaster/__init__.py``
+### Example: ``alabaster/__init__.py`` ---
 
 ```python
 def update_context(app, pagename, templatename, context, doctree):
@@ -1087,7 +1102,7 @@ def setup(app):
 
 ![](images/sphinx_todo_tutorial.png)
 
----- ----
+----
 
 ### Let's write an extension
 
@@ -1095,11 +1110,11 @@ def setup(app):
 - Docutils node
 - Docutils directive
 - Sphinx event handler to render HTML output
-- ``setup.py`` wiring
+- ``def setup(app)`` wiring
 
 ----
 
-### ``customizing_sphinx/node.py``
+#### ``customizing_sphinx/node.py``
 
 ```python
 from docutils import nodes
@@ -1119,7 +1134,7 @@ def depart_helloworld_node(self, node):
 
 ----
 
-### ``customizing_sphinx/directive.py``
+#### ``customizing_sphinx/directive.py``
 
 ```python
 from docutils.parsers.rst import Directive
@@ -1139,7 +1154,7 @@ class HelloWorldDirective(Directive):
 
 ----
 
-### ``customizing_sphinx/handlers.py``
+#### ``customizing_sphinx/handlers.py``
 
 ```python
 from docutils import nodes
@@ -1155,7 +1170,7 @@ def process_helloworld_nodes(app, doctree, fromdocname):
 
 ----
 
-### ``customizing_sphinx/__init__.py``
+#### ``customizing_sphinx/__init__.py``
 
 ```python
 from customizing_sphinx.directive import HelloWorldDirective
@@ -1212,7 +1227,7 @@ Customizing Sphinx
 
 - Sphinx has a pytest fixture
 
----- 
+----
 
 ### ``tests/conftest.py``
 
@@ -1253,7 +1268,7 @@ def page(content, request) -> BeautifulSoup:
     yield BeautifulSoup(c, 'html5lib')
 ```
 
----- 
+----
 
 #### tests/test_helloworld.py
 
@@ -1274,7 +1289,7 @@ def test_index(page):
     assert 'Hello World' == directive
 ```
 
----- 
+----
 
 #### Yields the pleasure of...
 
