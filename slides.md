@@ -479,7 +479,7 @@ html_theme_options = {
 
 ----
 
-### Where is this used?
+### Where is ``page_width`` used?
 
 ----
 
